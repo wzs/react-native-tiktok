@@ -16,7 +16,9 @@ class Tiktok: RCTEventEmitter {
         }
 
         if authResponse.errorCode == .noError {
-          callback([authResponse.authCode ?? "", self.authRequest.pkce.codeVerifier])
+          callback([authResponse.authCode ?? "", self.authRequest.pkce.codeVerifier, NSNull(), NSNull()])
+        } else {
+          callback([NSNull(), NSNull(), authResponse.error ?? "", authResponse.errorDescription ?? ""])
         }
       }
     }

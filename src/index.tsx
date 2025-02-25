@@ -22,7 +22,12 @@ export const Scopes = {
 type Props = {
   redirectURI: string;
   scopes?: string[];
-  callback(authCode: string, codeVerifier?: string): void;
+  callback(
+    authCode: string | null,
+    codeVerifier?: string | null,
+    error?: string,
+    errorDescription?: string
+  ): void;
 };
 
 const Tiktok = NativeModules.Tiktok;

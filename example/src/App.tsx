@@ -7,8 +7,20 @@ export default function App() {
     authorize({
       redirectURI: '<YOUR_REDIRECT_URL>',
       scopes: [Scopes.user.info.basic, Scopes.video.list],
-      callback: (authCode, codeVerifier) => {
-        console.log(authCode, codeVerifier);
+      callback: (authCode, codeVerifier, error, errorDescription) => {
+        if (error) {
+          console.error(
+            'TikTok authorization failed:',
+            error,
+            errorDescription
+          );
+        } else {
+          console.log(
+            'TikTok authorization succeeded:',
+            authCode,
+            codeVerifier
+          );
+        }
       },
     });
   }, []);

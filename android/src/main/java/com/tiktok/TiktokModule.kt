@@ -25,10 +25,10 @@ class TiktokModule(reactContext: ReactApplicationContext) :
     reactContext.addActivityEventListener(object : BaseActivityEventListener() {
       override fun onNewIntent(intent: Intent) {
         authApi?.getAuthResponseFromIntent(intent, redirectUrl)?.let {
-          if (it.authErrorDescription != null) {
-            Toast.makeText(reactApplicationContext, it.authErrorDescription, Toast.LENGTH_LONG).show()
+          if (it.authError != null || it.authErrorDescription != null) {
+            callback?.invoke(null, null, it.authError, it.authErrorDescription)
           } else {
-            callback?.invoke(it.authCode, codeVerifier)
+            callback?.invoke(it.authCode, codeVerifier, null, null)
           }
         }
       }
